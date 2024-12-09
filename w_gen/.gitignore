@@ -1,0 +1,9 @@
+.env
+app/api
+app/scripts
+app/tmp/
+app/dev-user-data.json
+
+# misc
+.DS_Store
+*.pem

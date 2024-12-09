@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  w_gen:
+    container_name: w_gen
+    hostname: w_gen
+    image: w_gen
+    build: ./w_gen
+    command: >
+      sh -c "go install github.com/air-verse/air@v1.52.2 &&
+            go build -o api cmd/api/main.go &&
+            go build -o scripts cmd/scripts/main.go &&
+            ./scripts migrate-dev-user-data &&
+            air"
+    env_file:
+      - ./w_gen/.env
+    volumes:
+      - ./w_gen/app/:/code/w_gen/
+    ports:
+      - 7010:7010
+
+  m_db_mongo:
+    container_name: m_db_mongo
+    hostname: m_db_mongo
+    image: mongo:7.0
+    environment:
+      DB_NAME: mdbm_db
+      DB_USERNAME: admin
+      DB_PASSWORD: password
+    volumes:
+      - ./db-data/mongo/:/data/db
+    ports:
+      - 27017:27017
+
+  m_redis:
+    container_name: m_redis
+    hostname: m_redis
+    image: redis:7.4
+    command: redis-server --save 20 1 --loglevel warning --requirepass q2sGPHduXqKHSsYlz59FF9i7hc8VUraQ
+    volumes:
+      - ./cache:/data
+    ports:
+      - 6379:6379
