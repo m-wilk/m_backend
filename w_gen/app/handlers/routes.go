@@ -3,10 +3,10 @@ package handlers
 import (
 	"net/http"
 
-	guard "github.com/m-wilk/w_gen/handlers/guards"
-	"github.com/m-wilk/w_gen/handlers/middlewares"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	guard "github.com/m-wilk/w_gen/handlers/guards"
+	"github.com/m-wilk/w_gen/handlers/middlewares"
 )
 
 func (h *Handler) Routes(e *echo.Echo) {
@@ -18,6 +18,7 @@ func (h *Handler) Routes(e *echo.Echo) {
 	apiGroup := e.Group("/api/v1")
 
 	apiGroup.GET("/creative-staff", h.CreativeStaff)
+	apiGroup.POST("/contact-form", h.ContactForm)
 
 	apiGroup.POST("/login", h.Login)
 	apiGroup.POST("/register", h.Register)

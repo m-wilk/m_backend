@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"net/http"
+	"regexp"
 	"time"
 
 	"github.com/labstack/echo/v4"
@@ -67,4 +68,45 @@ var CREATIVE_STAFF = []Staff{
 func (h *Handler) CreativeStaff(c echo.Context) error {
 	time.Sleep(3 * time.Second)
 	return c.JSON(http.StatusOK, CREATIVE_STAFF)
+}
+
+// Struct do przechowywania danych formularza
+type ContactForm struct {
+	FullName    string `json:"full_name" validate:"required"`
+	Email       string `json:"email" validate:"required,email"`
+	ServiceType string `json:"service_type" validate:"required"`
+	Message     string `json:"message" validate:"required"`
+}
+
+func isValidEmail(email string) bool {
+	regex := `^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`
+	return regexp.MustCompile(regex).MatchString(email)
+}
+
+func (h *Handler) ContactForm(c echo.Context) error {
+	var form ContactForm
+
+	if err := c.Bind(&form); err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string{
+			"error": "Invalid request payload",
+		})
+	}
+
+	if !isValidEmail(form.Email) {
+		return c.JSON(http.StatusBadRequest, map[string]string{
+			"error": "Invalid email address",
+		})
+	}
+
+	if form.Message == "" {
+		return c.JSON(http.StatusBadRequest, map[string]string{
+			"error": "Add message",
+		})
+	}
+
+	return c.JSON(http.StatusOK, map[string]string{
+		"status":  "success",
+		"message": "Thank you for your submission!",
+	})
+
 }
