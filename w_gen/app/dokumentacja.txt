@@ -44,7 +44,7 @@ json
 ***************************************************************************
 2. Dodawanie nowego zadania
 Endpoint:
-POST http://localhost:7010/api/v1/todos
+POST http://localhost:7010/api/v1/todos/add
 
 Opis:
 Dodaje nowe zadanie do listy.
