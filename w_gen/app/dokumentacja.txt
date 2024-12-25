@@ -1,6 +1,8 @@
 Dokumentacja Endpointów
 Oto lista endpointów dostępnych w aplikacji wraz z opisem ich działania:
 
+
+***************************************************************************
 1. Pobieranie listy zadań
 Endpoint:
 GET http://localhost:7010/api/v1/todos
@@ -18,7 +20,6 @@ GET http://localhost:7010/api/v1/todos?skip=0&limit=10
 Przykład odpowiedzi:
 
 json
-Skopiuj kod
 {
   "todos": [
     {
@@ -38,6 +39,9 @@ Skopiuj kod
   "skip": 0,
   "limit": 10
 }
+
+
+***************************************************************************
 2. Dodawanie nowego zadania
 Endpoint:
 POST http://localhost:7010/api/v1/todos
@@ -53,7 +57,6 @@ userId (int): ID użytkownika, który stworzył zadanie.
 Przykład zapytania:
 
 json
-Skopiuj kod
 POST http://localhost:7010/api/v1/todos
 Content-Type: application/json
 
@@ -65,13 +68,15 @@ Content-Type: application/json
 Przykład odpowiedzi:
 
 json
-Skopiuj kod
 {
   "id": 4,
   "todo": "Learn Go programming",
   "completed": false,
   "userId": 42
 }
+
+
+***************************************************************************
 3. Aktualizacja pola completed dla zadania
 Endpoint:
 PATCH http://localhost:7010/api/v1/todos/:id
@@ -88,7 +93,6 @@ completed (bool): Nowa wartość pola completed.
 Przykład zapytania:
 
 json
-Skopiuj kod
 PATCH http://localhost:7010/api/v1/todos/1
 Content-Type: application/json
 
@@ -98,7 +102,6 @@ Content-Type: application/json
 Przykład odpowiedzi:
 
 json
-Skopiuj kod
 {
   "id": 1,
   "todo": "Do something nice for someone I care about",
@@ -109,11 +112,14 @@ Odpowiedź w przypadku braku zadania o podanym id:
 Status: 404 Not Found
 
 json
-Skopiuj kod
 {
   "message": "Todo not found"
 }
+
+
+==========================================================================================
 Podsumowanie
 GET http://localhost:7010/api/v1/todos: Pobierz listę zadań z obsługą paginacji.
 POST http://localhost:7010/api/v1/todos: Dodaj nowe zadanie.
 PATCH http://localhost:7010/api/v1/todos/:id: Zmień status completed dla wybranego zadania.
+==========================================================================================
