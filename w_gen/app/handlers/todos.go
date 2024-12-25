@@ -113,6 +113,27 @@ func (h *Handler) updateTodoCompleted(c echo.Context) error {
 	return echo.NewHTTPError(http.StatusNotFound, "Todo not found")
 }
 
+func (h *Handler) deleteTodo(c echo.Context) error {
+	// Parse ID from path parameter
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil || id <= 0 {
+		return echo.NewHTTPError(http.StatusBadRequest, "Invalid ID")
+	}
+
+	todoMutex.Lock()
+	defer todoMutex.Unlock()
+
+	// Find and remove the todo
+	for i, todo := range todos {
+		if todo.ID == id {
+			todos = append(todos[:i], todos[i+1:]...) // Remove the todo
+			return c.JSON(http.StatusOK, map[string]string{"message": "Todo deleted"})
+		}
+	}
+
+	return echo.NewHTTPError(http.StatusNotFound, "Todo not found")
+}
+
 // Initialize with mock data
 func init() {
 	todos = []Todo{

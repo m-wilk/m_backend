@@ -117,9 +117,41 @@ json
 }
 
 
+***************************************************************************
+4. Usuwanie zadania
+Endpoint:
+DELETE /todos/:id
+
+Opis:
+Usuwa zadanie o podanym id.
+
+Parametry ścieżki:
+
+id (int): ID zadania, które chcesz usunąć.
+Przykład zapytania:
+
+bash
+DELETE /todos/1
+Przykład odpowiedzi:
+
+json
+{
+  "message": "Todo deleted"
+}
+Odpowiedź w przypadku braku zadania o podanym id:
+Status: 404 Not Found
+
+json
+{
+  "message": "Todo not found"
+}
+
+
+
 ==========================================================================================
 Podsumowanie
 GET http://localhost:7010/api/v1/todos: Pobierz listę zadań z obsługą paginacji.
 POST http://localhost:7010/api/v1/todos: Dodaj nowe zadanie.
 PATCH http://localhost:7010/api/v1/todos/:id: Zmień status completed dla wybranego zadania.
+DELETE /todos/:id: Usuń zadanie o podanym id.
 ==========================================================================================
