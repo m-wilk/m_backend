@@ -1,0 +1,119 @@
+Dokumentacja Endpointów
+Oto lista endpointów dostępnych w aplikacji wraz z opisem ich działania:
+
+1. Pobieranie listy zadań
+Endpoint:
+GET http://localhost:7010/api/v1/todos
+
+Opis:
+Zwraca listę zadań w formacie paginowanym.
+
+Parametry zapytania (opcjonalne):
+
+skip (int): Liczba elementów do pominięcia (domyślnie 0).
+limit (int): Maksymalna liczba elementów do zwrócenia (domyślnie 30).
+Przykład zapytania:
+GET http://localhost:7010/api/v1/todos?skip=0&limit=10
+
+Przykład odpowiedzi:
+
+json
+Skopiuj kod
+{
+  "todos": [
+    {
+      "id": 1,
+      "todo": "Do something nice for someone I care about",
+      "completed": true,
+      "userId": 26
+    },
+    {
+      "id": 2,
+      "todo": "Buy groceries",
+      "completed": false,
+      "userId": 26
+    }
+  ],
+  "total": 150,
+  "skip": 0,
+  "limit": 10
+}
+2. Dodawanie nowego zadania
+Endpoint:
+POST http://localhost:7010/api/v1/todos
+
+Opis:
+Dodaje nowe zadanie do listy.
+
+Wymagane dane w ciele żądania (JSON):
+
+todo (string): Opis zadania.
+completed (bool): Stan zadania (prawda/fałsz).
+userId (int): ID użytkownika, który stworzył zadanie.
+Przykład zapytania:
+
+json
+Skopiuj kod
+POST http://localhost:7010/api/v1/todos
+Content-Type: application/json
+
+{
+  "todo": "Learn Go programming",
+  "completed": false,
+  "userId": 42
+}
+Przykład odpowiedzi:
+
+json
+Skopiuj kod
+{
+  "id": 4,
+  "todo": "Learn Go programming",
+  "completed": false,
+  "userId": 42
+}
+3. Aktualizacja pola completed dla zadania
+Endpoint:
+PATCH http://localhost:7010/api/v1/todos/:id
+
+Opis:
+Aktualizuje wartość pola completed (prawda/fałsz) dla zadania o podanym id.
+
+Parametry ścieżki:
+
+id (int): ID zadania, które chcesz zmodyfikować.
+Wymagane dane w ciele żądania (JSON):
+
+completed (bool): Nowa wartość pola completed.
+Przykład zapytania:
+
+json
+Skopiuj kod
+PATCH http://localhost:7010/api/v1/todos/1
+Content-Type: application/json
+
+{
+  "completed": true
+}
+Przykład odpowiedzi:
+
+json
+Skopiuj kod
+{
+  "id": 1,
+  "todo": "Do something nice for someone I care about",
+  "completed": true,
+  "userId": 26
+}
+Odpowiedź w przypadku braku zadania o podanym id:
+Status: 404 Not Found
+
+json
+Skopiuj kod
+{
+  "message": "Todo not found"
+}
+Podsumowanie
+GET http://localhost:7010/api/v1/todos: Pobierz listę zadań z obsługą paginacji.
+POST http://localhost:7010/api/v1/todos: Dodaj nowe zadanie.
+PATCH http://localhost:7010/api/v1/todos/:id: Zmień status completed dla wybranego zadania.

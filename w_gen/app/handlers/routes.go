@@ -19,6 +19,9 @@ func (h *Handler) Routes(e *echo.Echo) {
 
 	apiGroup.GET("/creative-staff", h.CreativeStaff)
 	apiGroup.POST("/contact-form", h.ContactForm)
+	apiGroup.GET("/todos", h.getTodos)
+	apiGroup.POST("/todos/add", h.addTodo)
+	apiGroup.PATCH("/todos/:id", h.updateTodoCompleted)
 
 	apiGroup.POST("/login", h.Login)
 	apiGroup.POST("/register", h.Register)
