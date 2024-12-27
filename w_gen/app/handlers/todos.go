@@ -136,11 +136,7 @@ func (h *Handler) deleteTodo(c echo.Context) error {
 
 // Initialize with mock data
 func init() {
-	todos = []Todo{
-		{ID: 1, Todo: "Bądź miła dla Andrzeja", Completed: true, UserID: 1},
-		{ID: 2, Todo: "Przytul Andrzeja", Completed: false, UserID: 1},
-		{ID: 3, Todo: "Daj mu buzi 😍", Completed: true, UserID: 1},
-	}
+	todos = []Todo{}
 
 	nextID = len(todos) + 1
 }
